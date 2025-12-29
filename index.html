@@ -118,6 +118,43 @@
         .pulse-button {
             animation: pulse-gold 2s infinite;
         }
+
+        .stats-section {
+  padding: 80px 20px;
+  background: rgba(0,0,0,0.6);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.stats-container {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  text-align: center;
+}
+
+.stat-item h2 {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #d4a441;
+  margin-bottom: 10px;
+}
+
+.stat-item p {
+  color: #aaa;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+/* mobile */
+@media (max-width: 640px) {
+  .stat-item h2 {
+    font-size: 2.2rem;
+  }
+}
+
     </style>
 </head>
 
@@ -232,6 +269,34 @@
             </div>
         </div>
     </header>
+
+
+    <section class="stats-section reveal">
+  <div class="stats-container">
+
+    <div class="stat-item">
+      <h2><span class="counter" data-target="5">0</span>+</h2>
+      <p>Years Experience</p>
+    </div>
+
+    <div class="stat-item">
+      <h2><span class="counter" data-target="5000">0</span>+</h2>
+      <p>Happy Clients</p>
+    </div>
+
+    <div class="stat-item">
+      <h2><span class="counter" data-target="3000">0</span>+</h2>
+      <p>Trained Staff</p>
+    </div>
+
+    <div class="stat-item">
+      <h2><span class="counter" data-target="24">0</span>+</h2>
+      <p>Hours Support</p>
+    </div>
+
+  </div>
+</section>
+
 
     <section id="about" class="py-24 px-6 relative border-y border-white/5">
         <div class="max-w-7xl mx-auto">
@@ -500,11 +565,29 @@
                         <i
                             class="fa-solid fa-chevron-down text-gold group-[.active]:rotate-180 transition-transform duration-300"></i>
                     </div>
-                    <div class="faq-answer mt-4 text-gray-500 leading-relaxed hidden">
-                        Yes! We offer emergency replacement services within 24-48 hours for urgent requirements. For
-                        critical situations like staff leaving abruptly or sudden requirements, we prioritize your
-                        request. Our emergency hotline (+91 79059 57491) is available 24/7 for immediate assistance.
-                    </div>
+                   <div class="faq-answer mt-4 text-gray-500 leading-relaxed hidden">
+  <p class="mb-3">
+    Yes! We offer emergency replacement services within <strong>24–48 hours</strong> for urgent requirements.
+    For critical situations like staff leaving abruptly or sudden requirements, we prioritize your request.
+  </p>
+
+  <p class="mb-2 font-semibold text-white">
+    📞 Emergency Helpline (24/7):
+  </p>
+
+  <div class="flex flex-col gap-1">
+    <a href="tel:+917905957491"
+       class="text-gold hover:underline font-bold">
+      +91 79059 57491
+    </a>
+
+    <a href="tel:+919278457491"
+       class="text-gold hover:underline font-bold">
+      +91 92784 57491
+    </a>
+  </div>
+</div>
+
                 </div>
             </div>
         </div>
@@ -748,6 +831,56 @@
                 faqObserver.observe(item);
             });
         });
+
+
+
+        /* ===== STATS COUNTER (NO CONFLICT VERSION) ===== */
+(function () {
+  const statCounters = document.querySelectorAll(".counter");
+  let statsHasRun = false;
+
+  function startStatsCounter() {
+    if (statsHasRun) return;
+    statsHasRun = true;
+
+    statCounters.forEach(counter => {
+      const target = Number(counter.dataset.target);
+      let current = 0;
+
+      const speed = target > 100 ? 40 : 200;
+
+      function updateCounter() {
+        current += target / speed;
+
+        if (current < target) {
+          counter.textContent = Math.ceil(current);
+          requestAnimationFrame(updateCounter);
+        } else {
+          counter.textContent = target;
+        }
+      }
+
+      updateCounter();
+    });
+  }
+
+  const statsCounterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          startStatsCounter();
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  const statsSection = document.querySelector(".stats-section");
+  if (statsSection) {
+    statsCounterObserver.observe(statsSection);
+  }
+})();
+
     </script>
 </body>
 
