@@ -623,11 +623,11 @@
                 class="bg-card p-10 rounded-[2rem] border border-gold/20 shadow-[0_0_50px_rgba(0,0,0,0.5)] hover:shadow-[0_0_60px_rgba(212,164,65,0.2)] transition-all">
                 <h3 class="text-2xl font-bold mb-6 text-center text-gold">Book Your Service Now</h3>
                 <form class="space-y-4" id="contact-form">
-                    <input type="text" placeholder="Your Name"
+                    <input type="text" name="name" placeholder="Your Name"
                         class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold transition-all hover:border-gold/50">
-                    <input type="tel" placeholder="Phone Number"
+                    <input type="tel" name="phone" placeholder="Phone Number"
                         class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold transition-all hover:border-gold/50">
-                    <select
+                    <select name="service" 
                         class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold appearance-none hover:border-gold/50">
                         <option>Select a Service</option>
                         <option>Full Day Maid</option>
@@ -638,7 +638,7 @@
                         <option>Cleaning Services</option>
                         <option>Event Helper</option>
                     </select>
-                    <textarea placeholder="Additional Details" rows="4"
+                    <textarea name="message" placeholder="Additional Details" rows="4"
                         class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold transition-all hover:border-gold/50"></textarea>
                     <button type="button"
                         class="w-full bg-gold text-black font-black p-5 rounded-xl hover:bg-gold-dark transition-all uppercase tracking-widest hover:scale-[1.02] active:scale-95"
@@ -675,7 +675,137 @@
         </button>
     </div>
 
+    <!-- ===== AUTO ENQUIRY MODAL (24 HOURS) ===== -->
+<div id="enquiryModal"
+  class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999] hidden flex items-center justify-center px-4">
+
+  <div
+    class="bg-card w-full max-w-lg rounded-3xl p-8 relative border border-gold/30 shadow-2xl animate-fadeIn">
+
+    <!-- Close Button -->
+    <button onclick="closeModal()"
+      class="absolute top-4 right-4 text-gold text-3xl hover:rotate-90 transition">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <h3 class="text-2xl font-black text-center text-gold mb-6 uppercase tracking-wider">
+      Quick Enquiry
+    </h3>
+
+    <!-- POPUP FORM -->
+    <form id="popup-contact-form" class="space-y-4">
+
+      <input type="text" name="name" placeholder="Your Name"
+        class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold">
+
+      <input type="tel" name="phone" placeholder="Phone Number"
+        class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold">
+
+      <select name="service"
+        class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold">
+        <option value="">Select a Service</option>
+        <option>Full Day Maid</option>
+        <option>Half Day Maid</option>
+        <option>Chef / Cook</option>
+        <option>Babysitter</option>
+        <option>Professional Driver</option>
+        <option>Cleaning Services</option>
+      </select>
+
+      <textarea name="message" rows="3" placeholder="Additional Message"
+        class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold"></textarea>
+
+      <button type="button"
+        onclick="submitPopupForm()"
+        class="w-full bg-gold text-black font-black py-4 rounded-xl hover:bg-gold-dark transition uppercase tracking-widest">
+        <i class="fa-solid fa-paper-plane mr-2"></i> Send Enquiry
+      </button>
+
+    </form>
+  </div>
+</div>
+
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
+    <script>
+/* ================= MODAL OPEN / CLOSE ================= */
+function openModal() {
+  document.getElementById("enquiryModal").classList.remove("hidden");
+}
+
+function closeModal() {
+  document.getElementById("enquiryModal").classList.add("hidden");
+}
+
+/* ================= 24 HOURS AUTO POPUP ================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const STORAGE_KEY = "enquiry_popup_last_shown";
+  const HOURS_24 = 24 * 60 * 60 * 1000;
+
+  const lastShown = localStorage.getItem(STORAGE_KEY);
+  const now = Date.now();
+
+  if (!lastShown || now - lastShown > HOURS_24) {
+    setTimeout(() => {
+      openModal();
+      localStorage.setItem(STORAGE_KEY, now);
+    }, 3000); // 3 sec delay (UX smooth)
+  }
+});
+
+/* ================= POPUP FORM SUBMIT ================= */
+async function submitPopupForm() {
+  const form = document.getElementById("popup-contact-form");
+  const button = form.querySelector("button");
+
+  const payload = {
+    name: form.name.value.trim(),
+    phone: form.phone.value.trim(),
+    service: form.service.value,
+    message: form.message.value.trim()
+  };
+
+  if (!payload.name || !payload.phone || !payload.service) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  button.innerHTML = "Sending...";
+  button.disabled = true;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) throw new Error("Failed");
+
+    button.innerHTML = "Sent ✔";
+    button.classList.remove("bg-gold");
+    button.classList.add("bg-green-600");
+
+    form.reset();
+
+    setTimeout(() => {
+      closeModal();
+      button.innerHTML = `<i class="fa-solid fa-paper-plane mr-2"></i> Send Enquiry`;
+      button.classList.remove("bg-green-600");
+      button.classList.add("bg-gold");
+      button.disabled = false;
+    }, 1500);
+
+  } catch (err) {
+    alert("Something went wrong. Please try again.");
+    button.disabled = false;
+    button.innerHTML = "Send Enquiry";
+  }
+}
+</script>
+
     <script>
         // Initialize AOS
         AOS.init({
@@ -880,6 +1010,62 @@
     statsCounterObserver.observe(statsSection);
   }
 })();
+
+
+const API_BASE = "https://shyamji-home-help-backend.onrender.com";
+window.addEventListener("DOMContentLoaded", () => {
+  fetch(`${API_BASE}/api/visitor/track`, {
+    method: "POST"
+  }).catch(err => console.log("Visitor track failed", err));
+});
+
+
+async function submitForm() {
+  const form = document.getElementById("contact-form");
+  const button = form.querySelector("button");
+
+  const payload = {
+    name: form.name.value.trim(),
+    phone: form.phone.value.trim(),
+    service: form.service.value,
+    message: form.message.value.trim()
+  };
+
+  if (!payload.name || !payload.phone || !payload.service) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  button.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Sending...';
+  button.disabled = true;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) throw new Error("Failed");
+
+    button.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Request Sent!';
+    button.classList.remove("bg-gold");
+    button.classList.add("bg-green-600");
+
+    form.reset();
+
+  } catch (err) {
+    alert("Something went wrong. Please try again.");
+    console.error(err);
+  }
+
+  setTimeout(() => {
+    button.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Submit Request';
+    button.classList.remove("bg-green-600");
+    button.classList.add("bg-gold");
+    button.disabled = false;
+  }, 3000);
+}
 
     </script>
 </body>
