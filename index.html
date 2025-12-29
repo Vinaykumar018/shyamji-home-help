@@ -26,7 +26,7 @@
         }
     </script>
     <style>
-        .glass { background: rgba(12, 12, 12, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(212, 164, 65, 0.1); }
+        .glass { background: rgba(12, 12, 12, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(212, 164, 65, 0.1); }
         .hero-gradient { background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%); }
         .floating { animation: float 3s ease-in-out infinite; }
         @keyframes float {
@@ -37,6 +37,24 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #d4a441; border-radius: 10px; }
+        
+        /* Service Card Hover Effects */
+        .service-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1); }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(212, 164, 65, 0.15); }
+        
+        /* Mobile Menu Animation */
+        .mobile-menu-active { display: flex !important; animation: slideDown 0.3s ease-out; }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Button Pulse Animation */
+        @keyframes pulse-gold {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(212, 164, 65, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(212, 164, 65, 0); }
+        }
+        .pulse-button { animation: pulse-gold 2s infinite; }
     </style>
 </head>
 <body class="bg-black text-white font-sans overflow-x-hidden">
@@ -49,73 +67,89 @@
             </div>
             
             <div class="hidden md:flex space-x-8 items-center font-medium">
-                <a href="#" class="hover:text-gold transition-colors">Home</a>
-                <a href="#services" class="hover:text-gold transition-colors">Services</a>
-                <a href="#about" class="hover:text-gold transition-colors">About</a>
-                <a href="#testimonials" class="hover:text-gold transition-colors">Testimonials</a>
-                <a href="#contact" class="hover:text-gold transition-colors">Contact</a>
-                <a href="tel:+917905957491" class="bg-gold hover:bg-gold-dark text-black px-6 py-2 rounded-full font-bold transition-transform hover:scale-105">Book Now</a>
+                <a href="#" class="hover:text-gold transition-colors group relative">
+                    <span class="relative">Home</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#services" class="hover:text-gold transition-colors group relative">
+                    <span class="relative">Services</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#about" class="hover:text-gold transition-colors group relative">
+                    <span class="relative">About</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#testimonials" class="hover:text-gold transition-colors group relative">
+                    <span class="relative">Testimonials</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#contact" class="hover:text-gold transition-colors group relative">
+                    <span class="relative">Contact</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="tel:+917905957491" class="bg-gold hover:bg-gold-dark text-black px-6 py-2 rounded-full font-bold transition-transform hover:scale-105 pulse-button">Book Now</a>
             </div>
 
-            <button id="menu-btn" class="md:hidden text-gold text-2xl"><i class="fa-solid fa-bars-staggered"></i></button>
+            <button id="menu-btn" class="md:hidden text-gold text-2xl hover:text-white transition-colors">
+                <i id="menu-icon" class="fa-solid fa-bars-staggered"></i>
+            </button>
         </div>
 
-        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-card p-6 flex-col space-y-4 text-center border-b border-gold/20 shadow-2xl">
-            <a href="#" class="text-lg">Home</a>
-            <a href="#services" class="text-lg">Services</a>
-            <a href="#about" class="text-lg">About</a>
-            <a href="#testimonials" class="text-lg">Testimonials</a>
-            <a href="#contact" class="text-lg">Contact</a>
-            <a href="tel:+917905957491" class="text-gold font-bold">Call: +91 79059 57491</a>
+        <!-- FIXED: Mobile Menu - Now properly styled and animated -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full glass p-8 flex-col space-y-6 text-center shadow-2xl z-40 border-t border-gold/20">
+            <a href="#" class="text-xl py-3 hover:text-gold transition-all duration-300 hover:bg-gold/10 rounded-xl mobile-nav-link">Home</a>
+            <a href="#services" class="text-xl py-3 hover:text-gold transition-all duration-300 hover:bg-gold/10 rounded-xl mobile-nav-link">Services</a>
+            <a href="#about" class="text-xl py-3 hover:text-gold transition-all duration-300 hover:bg-gold/10 rounded-xl mobile-nav-link">About</a>
+            <a href="#testimonials" class="text-xl py-3 hover:text-gold transition-all duration-300 hover:bg-gold/10 rounded-xl mobile-nav-link">Testimonials</a>
+            <a href="#contact" class="text-xl py-3 hover:text-gold transition-all duration-300 hover:bg-gold/10 rounded-xl mobile-nav-link">Contact</a>
+            <a href="tel:+917905957491" class="bg-gold text-black font-bold py-4 rounded-xl text-lg hover:bg-gold-dark transition-all mt-4 pulse-button">Call: +91 79059 57491</a>
         </div>
     </nav>
 
     <header class="hero-gradient min-h-screen flex items-center pt-20 px-6 relative overflow-hidden">
        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
 
-  <!-- IMAGE (TOP on mobile, RIGHT on desktop) -->
-  <div data-aos="zoom-in"
-       class="relative group order-1 md:order-2">
-    <div class="absolute inset-0 bg-gold/10 blur-[120px] rounded-full group-hover:bg-gold/20 transition-all duration-700"></div>
-    <img src="https://i.ibb.co/h1fbxznW/Whats-App-Image-2025-12-28-at-10-54-39-PM.jpg"
-         class="relative z-10 w-full max-w-md mx-auto rounded-[2rem] shadow-2xl floating border border-white/10"
-         alt="Hero Image">
-  </div>
+            <!-- IMAGE (TOP on mobile, RIGHT on desktop) -->
+            <div data-aos="zoom-in"
+                class="relative group order-1 md:order-2">
+                <div class="absolute inset-0 bg-gold/10 blur-[120px] rounded-full group-hover:bg-gold/20 transition-all duration-700"></div>
+                <img src="https://i.ibb.co/h1fbxznW/Whats-App-Image-2025-12-28-at-10-54-39-PM.jpg"
+                    class="relative z-10 w-full max-w-md mx-auto rounded-[2rem] shadow-2xl floating border border-white/10 hover:scale-105 transition-transform duration-500 cursor-pointer"
+                    alt="Hero Image">
+            </div>
 
-  <!-- TEXT (BELOW image on mobile, LEFT on desktop) -->
-  <div data-aos="fade-right"
-       class="order-2 md:order-1 text-center md:text-left">
-    <span class="inline-block px-4 py-1 border border-gold/30 rounded-full text-gold text-sm mb-6 bg-gold/5 font-semibold">
-      ALL INDIA SERVICE AVAILABLE
-    </span>
+            <!-- TEXT (BELOW image on mobile, LEFT on desktop) -->
+            <div data-aos="fade-right"
+                class="order-2 md:order-1 text-center md:text-left">
+                <span class="inline-block px-4 py-1 border border-gold/30 rounded-full text-gold text-sm mb-6 bg-gold/5 font-semibold animate-pulse">
+                    ALL INDIA SERVICE AVAILABLE
+                </span>
 
-    <h1 class="text-5xl md:text-8xl font-black mb-4 leading-none uppercase tracking-tighter text-gold">
-      SHYAM JI
-    </h1>
+                <h1 class="text-5xl md:text-8xl font-black mb-4 leading-none uppercase tracking-tighter text-gold">
+                    SHYAM JI
+                </h1>
 
-    <h2 class="text-2xl md:text-3xl font-light tracking-[0.3em] text-white/90 mb-6 uppercase">
-      Premium Home Help
-    </h2>
+                <h2 class="text-2xl md:text-3xl font-light tracking-[0.3em] text-white/90 mb-6 uppercase">
+                    Premium Home Help
+                </h2>
 
-    <p class="text-gray-400 text-lg mb-10 max-w-lg leading-relaxed mx-auto md:mx-0">
-      Your Trusted Partner for Professional Home Services Across India.
-    </p>
+                <p class="text-gray-400 text-lg mb-10 max-w-lg leading-relaxed mx-auto md:mx-0">
+                    Your Trusted Partner for Professional Home Services Across India.
+                </p>
 
-    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-      <a href="tel:+917905957491"
-         class="bg-gold text-black px-8 py-4 rounded-xl font-bold text-lg text-center hover:shadow-[0_0_30px_rgba(212,164,65,0.4)] transition-all">
-        Choose Staff Now
-      </a>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="tel:+917905957491"
+                        class="bg-gold text-black px-8 py-4 rounded-xl font-bold text-lg text-center hover:shadow-[0_0_30px_rgba(212,164,65,0.4)] transition-all hover:scale-105 active:scale-95 pulse-button">
+                        <i class="fa-solid fa-phone mr-2"></i> Choose Staff Now
+                    </a>
 
-      <a href="#services"
-         class="border border-gold/50 text-gold px-8 py-4 rounded-xl font-bold text-lg text-center hover:bg-gold hover:text-black transition-all">
-        View Services
-      </a>
-    </div>
-  </div>
-
-</div>
-
+                    <a href="#services"
+                        class="border border-gold/50 text-gold px-8 py-4 rounded-xl font-bold text-lg text-center hover:bg-gold hover:text-black transition-all hover:scale-105 active:scale-95">
+                        <i class="fa-solid fa-list mr-2"></i> View Services
+                    </a>
+                </div>
+            </div>
+        </div>
     </header>
 
     <section id="about" class="py-24 px-6 relative border-y border-white/5">
@@ -126,22 +160,22 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                <div data-aos="fade-up" data-aos-delay="100" class="bg-card p-10 rounded-3xl border border-white/5 text-center hover:border-gold/30 transition-all group">
-                    <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gold transition-colors">
+                <div data-aos="fade-up" data-aos-delay="100" class="bg-card p-10 rounded-3xl border border-white/5 text-center hover:border-gold/30 transition-all group service-card">
+                    <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gold transition-colors group-hover:rotate-12 transition-transform">
                         <i class="fa-solid fa-shield text-2xl text-gold group-hover:text-black"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 uppercase tracking-tight">Verified Staff</h3>
                     <p class="text-gray-500">All staff are background checked and verified.</p>
                 </div>
-                <div data-aos="fade-up" data-aos-delay="200" class="bg-card p-10 rounded-3xl border border-white/5 text-center hover:border-gold/30 transition-all group">
-                    <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gold transition-colors">
+                <div data-aos="fade-up" data-aos-delay="200" class="bg-card p-10 rounded-3xl border border-white/5 text-center hover:border-gold/30 transition-all group service-card">
+                    <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gold transition-colors group-hover:rotate-12 transition-transform">
                         <i class="fa-solid fa-users text-2xl text-gold group-hover:text-black"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 uppercase tracking-tight">Experienced Team</h3>
                     <p class="text-gray-500">Professionally trained with years of experience.</p>
                 </div>
-                <div data-aos="fade-up" data-aos-delay="300" class="bg-card p-10 rounded-3xl border border-white/5 text-center hover:border-gold/30 transition-all group">
-                    <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gold transition-colors">
+                <div data-aos="fade-up" data-aos-delay="300" class="bg-card p-10 rounded-3xl border border-white/5 text-center hover:border-gold/30 transition-all group service-card">
+                    <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gold transition-colors group-hover:rotate-12 transition-transform">
                         <i class="fa-solid fa-award text-2xl text-gold group-hover:text-black"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 uppercase tracking-tight">Quality Service</h3>
@@ -165,53 +199,75 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div data-aos="zoom-in" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden">
-                    <i class="fa-solid fa-user text-3xl text-gold mb-6 block"></i>
+                <div data-aos="zoom-in" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden service-card">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gold/0 via-gold to-gold/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <i class="fa-solid fa-user text-3xl text-gold mb-6 block group-hover:scale-125 transition-transform"></i>
                     <h3 class="text-xl font-bold mb-4">Full Day Maid</h3>
                     <ul class="text-gray-500 space-y-2 text-sm">
-                        <li>• House helper</li><li>• Cooking & laundry</li><li>• 24 hours daily</li><li>• Verified staff</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> House helper</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Cooking & laundry</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> 24 hours daily</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Verified staff</li>
                     </ul>
                 </div>
-                <div data-aos="zoom-in" data-aos-delay="50" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden">
-                    <i class="fa-solid fa-baby text-3xl text-gold mb-6 block"></i>
+                <div data-aos="zoom-in" data-aos-delay="50" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden service-card">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gold/0 via-gold to-gold/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <i class="fa-solid fa-baby text-3xl text-gold mb-6 block group-hover:scale-125 transition-transform"></i>
                     <h3 class="text-xl font-bold mb-4">Baby Sitting</h3>
                     <ul class="text-gray-500 space-y-2 text-sm">
-                        <li>• Experienced caretakers</li><li>• Feeding & safety</li><li>• Background verified</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Experienced caretakers</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Feeding & safety</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Background verified</li>
                     </ul>
                 </div>
-                <div data-aos="zoom-in" data-aos-delay="100" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden">
-                    <i class="fa-solid fa-clock text-3xl text-gold mb-6 block"></i>
+                <div data-aos="zoom-in" data-aos-delay="100" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden service-card">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gold/0 via-gold to-gold/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <i class="fa-solid fa-clock text-3xl text-gold mb-6 block group-hover:scale-125 transition-transform"></i>
                     <h3 class="text-xl font-bold mb-4">Half Day Maid</h3>
                     <ul class="text-gray-500 space-y-2 text-sm">
-                        <li>• 10 hours service</li><li>• Cleaning & utensils</li><li>• Flexible timings</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> 10 hours service</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Cleaning & utensils</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Flexible timings</li>
                     </ul>
                 </div>
-                <div data-aos="zoom-in" data-aos-delay="150" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden">
-                    <i class="fa-solid fa-broom text-3xl text-gold mb-6 block"></i>
+                <div data-aos="zoom-in" data-aos-delay="150" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden service-card">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gold/0 via-gold to-gold/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <i class="fa-solid fa-broom text-3xl text-gold mb-6 block group-hover:scale-125 transition-transform"></i>
                     <h3 class="text-xl font-bold mb-4">Cleaning Services</h3>
                     <ul class="text-gray-500 space-y-2 text-sm">
-                        <li>• Deep cleaning</li><li>• Kitchen & bathroom</li><li>• Regular service</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Deep cleaning</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Kitchen & bathroom</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Regular service</li>
                     </ul>
                 </div>
-                <div data-aos="zoom-in" data-aos-delay="200" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden">
-                    <i class="fa-solid fa-utensils text-3xl text-gold mb-6 block"></i>
+                <div data-aos="zoom-in" data-aos-delay="200" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden service-card">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gold/0 via-gold to-gold/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <i class="fa-solid fa-utensils text-3xl text-gold mb-6 block group-hover:scale-125 transition-transform"></i>
                     <h3 class="text-xl font-bold mb-4">Chef / Cook</h3>
                     <ul class="text-gray-500 space-y-2 text-sm">
-                        <li>• Multi-cuisine</li><li>• Hygienic cooking</li><li>• Diet customization</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Multi-cuisine</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Hygienic cooking</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Diet customization</li>
                     </ul>
                 </div>
-                <div data-aos="zoom-in" data-aos-delay="250" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden">
-                    <i class="fa-solid fa-champagne-glasses text-3xl text-gold mb-6 block"></i>
+                <div data-aos="zoom-in" data-aos-delay="250" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden service-card">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gold/0 via-gold to-gold/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <i class="fa-solid fa-champagne-glasses text-3xl text-gold mb-6 block group-hover:scale-125 transition-transform"></i>
                     <h3 class="text-xl font-bold mb-4">Event Helper</h3>
                     <ul class="text-gray-500 space-y-2 text-sm">
-                        <li>• Event setup</li><li>• Serving staff</li><li>• Post-event cleanup</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Event setup</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Serving staff</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Post-event cleanup</li>
                     </ul>
                 </div>
-                <div data-aos="zoom-in" data-aos-delay="300" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden">
-                    <i class="fa-solid fa-taxi text-3xl text-gold mb-6 block"></i>
+                <div data-aos="zoom-in" data-aos-delay="300" class="bg-card p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all group relative overflow-hidden service-card">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gold/0 via-gold to-gold/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <i class="fa-solid fa-taxi text-3xl text-gold mb-6 block group-hover:scale-125 transition-transform"></i>
                     <h3 class="text-xl font-bold mb-4">Professional Driver</h3>
                     <ul class="text-gray-500 space-y-2 text-sm">
-                        <li>• Full/Half-time</li><li>• Daily basis</li><li>• Verified license</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Full/Half-time</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Daily basis</li>
+                        <li><i class="fa-solid fa-check text-gold mr-2"></i> Verified license</li>
                     </ul>
                 </div>
             </div>
@@ -222,18 +278,18 @@
         <div class="max-w-7xl mx-auto">
             <h2 class="text-center text-4xl font-bold mb-16 uppercase text-gold" data-aos="fade-up">What Our Clients Say</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div data-aos="fade-up" class="bg-card/50 p-8 rounded-3xl border-l-4 border-gold italic relative">
-                    <span class="text-gold text-sm block mb-4 italic">⭐⭐⭐⭐⭐</span>
+                <div data-aos="fade-up" class="bg-card/50 p-8 rounded-3xl border-l-4 border-gold hover:border-l-8 transition-all duration-300 hover:shadow-2xl hover:shadow-gold/10">
+                    <span class="text-gold text-2xl block mb-4">⭐⭐⭐⭐⭐</span>
                     <p class="text-gray-300 leading-relaxed mb-6">"Excellent service and professional maid. My house has never looked cleaner."</p>
                     <p class="font-bold text-white uppercase text-xs tracking-widest">Priya Sharma – Delhi</p>
                 </div>
-                <div data-aos="fade-up" data-aos-delay="100" class="bg-card/50 p-8 rounded-3xl border-l-4 border-gold italic relative">
-                    <span class="text-gold text-sm block mb-4 italic">⭐⭐⭐⭐⭐</span>
+                <div data-aos="fade-up" data-aos-delay="100" class="bg-card/50 p-8 rounded-3xl border-l-4 border-gold hover:border-l-8 transition-all duration-300 hover:shadow-2xl hover:shadow-gold/10">
+                    <span class="text-gold text-2xl block mb-4">⭐⭐⭐⭐⭐</span>
                     <p class="text-gray-300 leading-relaxed mb-6">"Cook service is hygienic and punctual. The food tastes amazing."</p>
                     <p class="font-bold text-white uppercase text-xs tracking-widest">Rajesh Kumar – Mumbai</p>
                 </div>
-                <div data-aos="fade-up" data-aos-delay="200" class="bg-card/50 p-8 rounded-3xl border-l-4 border-gold italic relative">
-                    <span class="text-gold text-sm block mb-4 italic">⭐⭐⭐⭐⭐</span>
+                <div data-aos="fade-up" data-aos-delay="200" class="bg-card/50 p-8 rounded-3xl border-l-4 border-gold hover:border-l-8 transition-all duration-300 hover:shadow-2xl hover:shadow-gold/10">
+                    <span class="text-gold text-2xl block mb-4">⭐⭐⭐⭐⭐</span>
                     <p class="text-gray-300 leading-relaxed mb-6">"Very safe baby sitting service. I can go to work without worry."</p>
                     <p class="font-bold text-white uppercase text-xs tracking-widest">Anita Desai – Bangalore</p>
                 </div>
@@ -241,87 +297,291 @@
         </div>
     </section>
 
-    <section class="py-24 px-6 bg-dark/50">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-3xl font-bold mb-10 text-center uppercase tracking-widest text-gold" data-aos="fade-up">Frequently Asked Questions</h2>
-            <div class="space-y-4">
-                <details data-aos="fade-up" class="group bg-card border border-white/5 rounded-2xl p-6 cursor-pointer">
-                    <summary class="list-none flex justify-between items-center font-bold text-lg">
-                        How do you verify your staff? <i class="fa-solid fa-chevron-down text-gold group-open:rotate-180 transition-transform"></i>
-                    </summary>
-                    <p class="mt-4 text-gray-500 leading-relaxed">We perform rigorous background checks, including identity verification and past work history reviews, to ensure total safety.</p>
-                </details>
-                <details data-aos="fade-up" class="group bg-card border border-white/5 rounded-2xl p-6 cursor-pointer">
-                    <summary class="list-none flex justify-between items-center font-bold text-lg">
-                        What areas do you serve? <i class="fa-solid fa-chevron-down text-gold group-open:rotate-180 transition-transform"></i>
-                    </summary>
-                    <p class="mt-4 text-gray-500 leading-relaxed">We provide premium home help services across all major metropolitan cities in India.</p>
-                </details>
-                <details data-aos="fade-up" class="group bg-card border border-white/5 rounded-2xl p-6 cursor-pointer">
-                    <summary class="list-none flex justify-between items-center font-bold text-lg">
-                        Can I replace staff if not satisfied? <i class="fa-solid fa-chevron-down text-gold group-open:rotate-180 transition-transform"></i>
-                    </summary>
-                    <p class="mt-4 text-gray-500 leading-relaxed">Absolutely. If you are not satisfied with the performance, we provide a replacement as part of our commitment to quality.</p>
-                </details>
+   <section class="py-24 px-6 bg-dark/50">
+    <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold mb-10 text-center uppercase tracking-widest text-gold" data-aos="fade-up">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+            <!-- FAQ 1 -->
+            <div data-aos="fade-up" class="group bg-card border border-white/5 rounded-2xl p-6 cursor-pointer hover:border-gold/30 transition-all faq-item">
+                <div class="flex justify-between items-center font-bold text-lg">
+                    <span class="hover:text-gold transition-colors">How do you verify your staff?</span>
+                    <i class="fa-solid fa-chevron-down text-gold group-[.active]:rotate-180 transition-transform duration-300"></i>
+                </div>
+                <div class="faq-answer mt-4 text-gray-500 leading-relaxed hidden">
+                    We perform rigorous background checks including police verification, address proof validation, and reference checks from previous employers. All staff undergo thorough interviews, skill assessments, and provide complete documentation including Aadhar card, PAN card, and recent photographs.
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div data-aos="fade-up" class="group bg-card border border-white/5 rounded-2xl p-6 cursor-pointer hover:border-gold/30 transition-all faq-item">
+                <div class="flex justify-between items-center font-bold text-lg">
+                    <span class="hover:text-gold transition-colors">What areas do you serve?</span>
+                    <i class="fa-solid fa-chevron-down text-gold group-[.active]:rotate-180 transition-transform duration-300"></i>
+                </div>
+                <div class="faq-answer mt-4 text-gray-500 leading-relaxed hidden">
+                    We provide premium home help services across all major metropolitan cities in India including Delhi, Mumbai, Bangalore, Hyderabad, Chennai, Kolkata, Pune, and Ahmedabad. We're expanding to tier-2 cities rapidly. Contact us to check availability in your specific location.
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div data-aos="fade-up" class="group bg-card border border-white/5 rounded-2xl p-6 cursor-pointer hover:border-gold/30 transition-all faq-item">
+                <div class="flex justify-between items-center font-bold text-lg">
+                    <span class="hover:text-gold transition-colors">Can I replace staff if not satisfied?</span>
+                    <i class="fa-solid fa-chevron-down text-gold group-[.active]:rotate-180 transition-transform duration-300"></i>
+                </div>
+                <div class="faq-answer mt-4 text-gray-500 leading-relaxed hidden">
+                    Absolutely! We offer a 7-day replacement guarantee. If you're not satisfied with the staff's performance within the first week, we provide a free replacement. Even after that, we offer replacement options with minimal notice period as part of our commitment to customer satisfaction.
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div data-aos="fade-up" class="group bg-card border border-white/5 rounded-2xl p-6 cursor-pointer hover:border-gold/30 transition-all faq-item">
+                <div class="flex justify-between items-center font-bold text-lg">
+                    <span class="hover:text-gold transition-colors">What are your charges?</span>
+                    <i class="fa-solid fa-chevron-down text-gold group-[.active]:rotate-180 transition-transform duration-300"></i>
+                </div>
+                <div class="faq-answer mt-4 text-gray-500 leading-relaxed hidden">
+                    Our charges vary based on the type of service, duration, and location. Generally:<br><br>
+                    • Full Day Maid: ₹12,000 - ₹18,000 per month<br>
+                    • Half Day Maid: ₹8,000 - ₹12,000 per month<br>
+                    • Cook/Chef: ₹15,000 - ₹25,000 per month<br>
+                    • Baby Sitter: ₹10,000 - ₹16,000 per month<br>
+                    • Driver: ₹15,000 - ₹22,000 per month<br><br>
+                    Contact us for exact pricing with no hidden charges.
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div data-aos="fade-up" class="group bg-card border border-white/5 rounded-2xl p-6 cursor-pointer hover:border-gold/30 transition-all faq-item">
+                <div class="flex justify-between items-center font-bold text-lg">
+                    <span class="hover:text-gold transition-colors">Do you provide emergency services?</span>
+                    <i class="fa-solid fa-chevron-down text-gold group-[.active]:rotate-180 transition-transform duration-300"></i>
+                </div>
+                <div class="faq-answer mt-4 text-gray-500 leading-relaxed hidden">
+                    Yes! We offer emergency replacement services within 24-48 hours for urgent requirements. For critical situations like staff leaving abruptly or sudden requirements, we prioritize your request. Our emergency hotline (+91 79059 57491) is available 24/7 for immediate assistance.
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="contact" class="py-24 px-6 border-t border-white/5">
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
             <div data-aos="fade-right">
                 <h2 class="text-4xl font-bold mb-8 italic text-gold uppercase tracking-tighter">Get In Touch</h2>
                 <div class="space-y-6">
-                    <div class="p-6 rounded-3xl bg-card border border-white/5">
+                    <div class="p-6 rounded-3xl bg-card border border-white/5 hover:border-gold/30 transition-all hover:scale-[1.02]">
                         <p class="text-xs uppercase tracking-widest text-gold mb-1 font-bold">Pro. Ashu Gupta</p>
-                        <a href="tel:+917905957491" class="text-xl font-bold block hover:text-gold">+91 79059 57491</a>
-                        <a href="tel:+919278457491" class="text-xl font-bold block hover:text-gold mt-1">+91 92784 57491</a>
+                        <a href="tel:+917905957491" class="text-xl font-bold block hover:text-gold transition-colors"><i class="fa-solid fa-phone mr-2"></i> +91 79059 57491</a>
+                        <a href="tel:+919278457491" class="text-xl font-bold block hover:text-gold transition-colors mt-2"><i class="fa-solid fa-phone mr-2"></i> +91 92784 57491</a>
                     </div>
-                    <div class="p-6 rounded-3xl bg-card border border-white/5">
+                    <div class="p-6 rounded-3xl bg-card border border-white/5 hover:border-gold/30 transition-all hover:scale-[1.02]">
                         <p class="text-xs uppercase tracking-widest text-gold mb-1 font-bold">Email & Support</p>
-                        <a href="mailto:info@shyamjihomehelp.com" class="text-lg font-medium block hover:text-gold">info@shyamjihomehelp.com</a>
-                        <p class="text-gray-500 mt-2"><i class="fa-solid fa-clock mr-2 text-gold"></i> 24/7 Available</p>
+                        <a href="mailto:info@shyamjihomehelp.com" class="text-lg font-medium block hover:text-gold transition-colors"><i class="fa-solid fa-envelope mr-2"></i> info@shyamjihomehelp.com</a>
+                        <p class="text-gray-500 mt-4"><i class="fa-solid fa-clock mr-2 text-gold"></i> 24/7 Available</p>
                     </div>
                 </div>
             </div>
 
-            <div data-aos="fade-left" class="bg-card p-10 rounded-[2rem] border border-gold/20 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-                <form class="space-y-4">
-                    <input type="text" placeholder="Your Name" class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold transition-all">
-                    <input type="tel" placeholder="Phone Number" class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold transition-all">
-                    <select class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold appearance-none">
+            <div data-aos="fade-left" class="bg-card p-10 rounded-[2rem] border border-gold/20 shadow-[0_0_50px_rgba(0,0,0,0.5)] hover:shadow-[0_0_60px_rgba(212,164,65,0.2)] transition-all">
+                <h3 class="text-2xl font-bold mb-6 text-center text-gold">Book Your Service Now</h3>
+                <form class="space-y-4" id="contact-form">
+                    <input type="text" placeholder="Your Name" class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold transition-all hover:border-gold/50">
+                    <input type="tel" placeholder="Phone Number" class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold transition-all hover:border-gold/50">
+                    <select class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold appearance-none hover:border-gold/50">
                         <option>Select a Service</option>
-                        <option>Maid</option><option>Cook</option><option>Babysitter</option><option>Driver</option>
+                        <option>Full Day Maid</option>
+                        <option>Half Day Maid</option>
+                        <option>Chef / Cook</option>
+                        <option>Babysitter</option>
+                        <option>Professional Driver</option>
+                        <option>Cleaning Services</option>
+                        <option>Event Helper</option>
                     </select>
-                    <textarea placeholder="Additional Details" rows="4" class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold transition-all"></textarea>
-                    <button class="w-full bg-gold text-black font-black p-5 rounded-xl hover:bg-gold-dark transition-all uppercase tracking-widest">Submit Request</button>
+                    <textarea placeholder="Additional Details" rows="4" class="w-full bg-black border border-white/10 p-4 rounded-xl focus:outline-none focus:border-gold transition-all hover:border-gold/50"></textarea>
+                    <button type="button" class="w-full bg-gold text-black font-black p-5 rounded-xl hover:bg-gold-dark transition-all uppercase tracking-widest hover:scale-[1.02] active:scale-95" onclick="submitForm()">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> Submit Request
+                    </button>
                 </form>
             </div>
         </div>
     </section>
 
     <footer class="py-12 border-t border-white/5 text-center text-gray-600">
-        <p>© 2025 Shyam Ji Premium Home Help | All Rights Reserved</p>
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="mb-4">© 2025 Shyam Ji Premium Home Help | All Rights Reserved</p>
+            <p class="text-sm text-gray-500">Professional Home Services Across India</p>
+        </div>
     </footer>
 
     <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-[100]">
-        <a href="https://wa.me/917905957491" class="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition-transform"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="tel:+917905957491" class="w-14 h-14 bg-gold rounded-full flex items-center justify-center text-2xl text-black shadow-2xl hover:scale-110 transition-transform"><i class="fa-solid fa-phone"></i></a>
+        <a href="https://wa.me/917905957491" class="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition-transform hover:shadow-green-500/50" title="Chat on WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="tel:+917905957491" class="w-14 h-14 bg-gold rounded-full flex items-center justify-center text-2xl text-black shadow-2xl hover:scale-110 transition-transform hover:shadow-gold/50 pulse-button" title="Call Now">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+        <button id="back-to-top" class="w-14 h-14 bg-card border border-gold/30 rounded-full flex items-center justify-center text-xl text-gold shadow-2xl hover:scale-110 transition-transform hover:border-gold" title="Back to Top">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        // Initialize AOS
+        AOS.init({ 
+            duration: 1000, 
+            once: true,
+            offset: 100
+        });
+        
+        // Navbar scroll effect
         window.addEventListener('scroll', function() {
             const nav = document.getElementById('navbar');
             window.scrollY > 50 ? nav.classList.add('glass', 'py-2') : nav.classList.remove('glass', 'py-2');
         });
+        
+        // Mobile menu functionality - FIXED
         const menuBtn = document.getElementById('menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('mobile-menu-active');
+            menuIcon.classList.toggle('fa-bars-staggered');
+            menuIcon.classList.toggle('fa-xmark');
+        }
+        
+        menuBtn.addEventListener('click', toggleMobileMenu);
+        
+        // Close mobile menu when clicking on any link
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('mobile-menu-active');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars-staggered');
+            });
         });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('mobile-menu-active');
+                    menuIcon.classList.remove('fa-xmark');
+                    menuIcon.classList.add('fa-bars-staggered');
+                }
+            }
+        });
+        
+        // Back to Top button
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('hidden');
+            } else {
+                backToTopBtn.classList.add('hidden');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Form submission animation
+        function submitForm() {
+            const form = document.getElementById('contact-form');
+            const button = form.querySelector('button');
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Sending...';
+            button.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                button.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Request Sent!';
+                button.classList.remove('bg-gold');
+                button.classList.add('bg-green-600');
+                
+                // Reset form
+                form.reset();
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.classList.remove('bg-green-600');
+                    button.classList.add('bg-gold');
+                    button.disabled = false;
+                }, 3000);
+            }, 1500);
+        }
+        
+        // Add scroll animations to elements when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeIn');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            observer.observe(card);
+        });
+
+
+        // Add this to your existing JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    // FAQ Toggle Functionality
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Toggle active class on the clicked item
+            this.classList.toggle('active');
+            
+            // Toggle the answer visibility
+            const answer = this.querySelector('.faq-answer');
+            answer.classList.toggle('hidden');
+            
+            // Close other open FAQs (optional - remove if you want multiple open)
+            faqItems.forEach(otherItem => {
+                if (otherItem !== this) {
+                    otherItem.classList.remove('active');
+                    const otherAnswer = otherItem.querySelector('.faq-answer');
+                    otherAnswer.classList.add('hidden');
+                }
+            });
+        });
+    });
+    
+    // Optional: Add animation for FAQ items on scroll
+    const faqObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    faqItems.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        faqObserver.observe(item);
+    });
+});
     </script>
 </body>
 </html>
