@@ -76,46 +76,43 @@
     </script>
 
 
-    <style>
-        .testimonial-card {
-            min-width: 320px;
-            background: rgba(22, 22, 22, 0.6);
-            padding: 2rem;
-            border-radius: 1.5rem;
-            border-left: 4px solid #d4a441;
-            color: #d1d5db;
-        }
+   <style>
+  .testimonial-card {
+    min-width: 320px;
+    background: rgba(22,22,22,0.6);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border-left: 4px solid #d4a441;
+    color: #d1d5db;
+  }
 
-        .testimonial-card .stars {
-            color: #d4a441;
-            font-size: 1.25rem;
-            display: block;
-            margin-bottom: 1rem;
-        }
+  .testimonial-card .stars {
+    color: #d4a441;
+    font-size: 1.25rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
 
-        .testimonial-card .name {
-            margin-top: 1.5rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: white;
-        }
+  .testimonial-card .name {
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: white;
+  }
 
-        @keyframes testimonialScroll {
-            0% {
-                transform: translateX(0);
-            }
+  @keyframes testimonialScrollFast {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 
-            100% {
-                transform: translateX(-50%);
-            }
-        }
+  /* FASTER SPEED HERE */
+  .animate-testimonial-fast {
+    animation: testimonialScrollFast 22s linear infinite;
+  }
+</style>
 
-        .animate-testimonial {
-            animation: testimonialScroll 35s linear infinite;
-        }
-    </style>
 
     <style>
         html,
@@ -546,77 +543,86 @@
     </section>
 
     <section id="testimonials" class="py-24 px-6 border-y border-white/5 overflow-hidden">
-        <div class="max-w-7xl mx-auto">
+  <div class="max-w-7xl mx-auto">
 
-            <h2 class="text-center text-4xl font-bold mb-16 uppercase text-gold" data-aos="fade-up">
-                What Our Clients Say
-            </h2>
+    <h2 class="text-center text-4xl font-bold mb-16 uppercase text-gold">
+      What Our Clients Say
+    </h2>
 
-            <!-- SLIDER WRAPPER -->
-            <div class="overflow-hidden">
-                <div id="testimonialSlider" class="flex gap-6 animate-testimonial">
+    <div class="overflow-hidden">
+      <div class="flex gap-6 animate-testimonial-fast">
 
-                    <!-- ===== Kanpur (5) ===== -->
-                    <div class="testimonial-card">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <p>"Excellent maid service. Very polite staff."</p>
-                        <p class="name">Ritu Verma – Kanpur</p>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <p>"Full day maid is very hardworking."</p>
-                        <p class="name">Aman Gupta – Kanpur</p>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <p>"Best home help agency in Kanpur."</p>
-                        <p class="name">Neha Mishra – Kanpur</p>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <p>"On-time service & great support."</p>
-                        <p class="name">Saurabh Singh – Kanpur</p>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <p>"Very hygienic cooking service."</p>
-                        <p class="name">Pooja Tiwari – Kanpur</p>
-                    </div>
-
-                    <!-- ===== Other Cities ===== -->
-                    <div class="testimonial-card">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <p>"Reliable babysitting service."</p>
-                        <p class="name">Shalini Gupta – Lucknow</p>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <p>"Professional driver service."</p>
-                        <p class="name">Rohit Mehra – Delhi</p>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <p>"Event helpers were very cooperative."</p>
-                        <p class="name">Kunal Jain – Pune</p>
-                    </div>
-
-                    <!-- DUPLICATE FOR SMOOTH LOOP -->
-                    <div class="testimonial-card">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <p>"Excellent maid service. Very polite staff."</p>
-                        <p class="name">Ritu Verma – Kanpur</p>
-                    </div>
-
-                </div>
-            </div>
+        <!-- ===== KANPUR (2) ===== -->
+        <div class="testimonial-card">
+          <span class="stars">⭐⭐⭐⭐⭐</span>
+          <p>"Excellent maid service. Very polite and trained staff."</p>
+          <p class="name">Ritu Verma – Kanpur</p>
         </div>
-    </section>
+
+        <div class="testimonial-card">
+          <span class="stars">⭐⭐⭐⭐⭐</span>
+          <p>"Best home help agency in Kanpur. Fully trusted."</p>
+          <p class="name">Aman Gupta – Kanpur</p>
+        </div>
+
+        <!-- ===== LUCKNOW (2) ===== -->
+        <div class="testimonial-card">
+          <span class="stars">⭐⭐⭐⭐⭐</span>
+          <p>"Babysitting service is very safe and reliable."</p>
+          <p class="name">Shalini Gupta – Lucknow</p>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="stars">⭐⭐⭐⭐⭐</span>
+          <p>"Cook service is hygienic and always on time."</p>
+          <p class="name">Vikas Srivastava – Lucknow</p>
+        </div>
+
+        <!-- ===== NOIDA (2) ===== -->
+        <div class="testimonial-card">
+          <span class="stars">⭐⭐⭐⭐⭐</span>
+          <p>"Professional driver service. Smooth experience."</p>
+          <p class="name">Rohit Mehra – Noida</p>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="stars">⭐⭐⭐⭐⭐</span>
+          <p>"Very responsive support team. Highly recommended."</p>
+          <p class="name">Neha Singh – Noida</p>
+        </div>
+
+        <!-- ===== DELHI (2) ===== -->
+        <div class="testimonial-card">
+          <span class="stars">⭐⭐⭐⭐⭐</span>
+          <p>"Cleaning service was top-class and well managed."</p>
+          <p class="name">Pooja Malhotra – Delhi</p>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="stars">⭐⭐⭐⭐⭐</span>
+          <p>"Verified staff and quick replacement. Very happy."</p>
+          <p class="name">Saurabh Jain – Delhi</p>
+        </div>
+
+        <!-- ===== DUPLICATE FIRST 4 FOR SMOOTH LOOP ===== -->
+        <div class="testimonial-card">
+          <span class="stars">⭐⭐⭐⭐⭐</span>
+          <p>"Excellent maid service. Very polite and trained staff."</p>
+          <p class="name">Ritu Verma – Kanpur</p>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="stars">⭐⭐⭐⭐⭐</span>
+          <p>"Best home help agency in Kanpur. Fully trusted."</p>
+          <p class="name">Aman Gupta – Kanpur</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
 
 
     <section class="py-24 px-6 bg-dark/50">
